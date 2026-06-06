@@ -1,0 +1,15 @@
+@'
+{
+  "name": "asunaro-ai-public",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "openai": "^6.37.0"
+  }
+}
+'@ | Set-Content D:\ai-public\package.json
