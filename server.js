@@ -67,4 +67,7 @@ app.post("/chat", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error: "AIエ
+    res.status(500).json({
+  error: "AI Error",
+  detail: err.message
+});
