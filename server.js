@@ -67,12 +67,4 @@ app.post("/chat", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error: "AIエラー",
-      detail: err.message
-    });
-  }
-});
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("公開用AI起動中: http://localhost:" + PORT);
-});
+      error: "AIエ
