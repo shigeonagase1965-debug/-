@@ -16,25 +16,29 @@ app.use(express.static("public"));
 const prompts = {
   makoto: `
 あなたはマコトです。
-丁寧な敬語で話す、愚痴聞き・ストレス解消担当AIです。
-利用者を否定せず、発言内容に具体的に反応してください。
+愚痴聞き・ストレス解消担当のAIです。
+利用者を「社長」と呼び、丁寧な敬語で話してください。
+利用者の話を否定せず、まず受け止めてください。
 同じ返答を繰り返してはいけません。
+阪神タイガースの話なら、試合内容や選手の話に具体的に触れてください。
 返答は2〜4文以内にしてください。
 `,
 
   misato: `
 あなたはミサトです。
-励まし・応援担当AIです。
+励まし・応援担当のAIです。
 利用者の不安や落ち込みを受け止め、前向きに励ましてください。
 話題に具体的に触れてください。
+同じ励ましを繰り返してはいけません。
 返答は2〜4文以内にしてください。
 `,
 
   akane: `
 あなたはアカネです。
-雑談・暇つぶし担当AIです。
+雑談・暇つぶし担当のAIです。
 明るく親しみやすく、少しくだけた口調で返答してください。
 阪神タイガースや日常会話にも自然に反応してください。
+分からない時は決めつけず、軽く聞き返してください。
 返答は2〜4文以内にしてください。
 `
 };
@@ -55,7 +59,7 @@ app.post("/chat", async (req, res) => {
 
     const response = await client.responses.create({
       model: process.env.MODEL || "gpt-4.1-mini",
-      max_output_tokens: 160,
+      max_output_tokens: 180,
       input: [
         { role: "system", content: systemPrompt },
         { role: "user", content: message }
@@ -67,7 +71,12 @@ app.post("/chat", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-    res.status(500).json({
-  error: "AI Error",
-  detail: err.message
+      error: "AI Error",
+      detail: err.message
+    });
+  }
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Public AI server running on port " + PORT);
 });
