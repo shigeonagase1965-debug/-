@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>あすなろ興産 公開AI体験版</title>
+<style>
+body{
+  font-family:sans-serif;
+  background:#e5ddd5;
+  margin:0;
+  color:#222;
+}
+header{
+  background:#0b7a3b;
+  color:white;
+  text-align:center;
+  padding:25px;
+}
+.container{
+  max-width:800px;
+  margin:auto;
+  padding:15px;
+}
+.control{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+select,textarea,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+}
+button{
+  background:#0b7a3b;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+button:disabled{
+  background:#999;
+}
+#chat{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.user{
+  align-self:flex-end;
+  background:#95ec69;
+  padding:12px;
+  border-radius:15px;
+  max-width:75%;
+}
+.ai{
+  align-self:flex-start;
+  background:white;
+  padding:12px;
+  border-radius:15px;
+  max-width:75%;
+}
+.name{
+  font-size:12px;
+  color:#666;
+  margin-bottom:5px;
+}
+.notice{
+  background:#fff7d6;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+</style>
+</head>
+<body>
 
+<header>
+  <h1>あすなろ興産 公開AI体験版</h1>
+  <p>マコト・ミサト・アカネと文字で会話できます</p>
+</header>
+
+<div class="container">
+
+  <div class="notice">
+    <p>
+      これは試験公開版です。現在は文字入力のみ対応しています。
+      個人情報、医療・法律・緊急相談は入力しないでください。
+    </p>
+  </div>
+
+  <div class="control">
+    <select id="character">
+      <option value="makoto">マコト：愚痴聞き・ストレス解消</option>
+      <option value="misato">ミサト：励まし・応援</option>
+      <option value="akane">アカネ：雑談・暇つぶし</option>
+    </select>
+
+    <textarea id="msg" rows="4" placeholder="ここに話したいことを書いてください"></textarea>
+
+    <button id="sendBtn" onclick="sendMsg()">送信</button>
+  </div>
+
+  <div id="chat"></div>
+
+</div>
+
+<script>
+let isProcessing = false;
+
+function getCharacterName(character){
+  return {
+    makoto:"マコト",
+    misato:"ミサト",
+    akane:"アカネ"
+  }[character] || "AI";
+}
+
+function addMessage(type, name, text){
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = type;
+  div.innerHTML = `<div class="name">${name}</div><div>${text}</div>`;
+  chat.appendChild(div);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+async function sendMsg(){
+  if(isProcessing) return;
+
+  const msgBox = document.getElementById("msg");
+  const message = msgBox.value.trim();
+  const character = document.getElementById("character").value;
+  const sendBtn = document.getElementById("sendBtn");
+
+  if(!message) return;
+
+  isProcessing = true;
+  sendBtn.disabled = true;
+
+  addMessage("user", "あなた", message);
+  msgBox.value = "";
+
+  try{
+    const res = await fetch("/chat", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        message: message,
+        character: character
+      })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      addMessage("ai", "エラー", data.error || "通信エラー");
+    }else{
+      addMessage("ai", getCharacterName(character), data.reply || "返答がありません");
+    }
+
+  }catch(err){
+    addMessage("ai", "通信エラー", err.message);
+  }
+
+  isProcessing = false;
+  sendBtn.disabled = false;
+}
+</script>
+
+</body>
+</html>
