@@ -2,68 +2,98 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>あすなろ興産 AI音声会話サービス</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あすなろ興産 公開AI体験版</title>
 
 <style>
 body{
-  font-family:sans-serif;
-  background:#f5f5f5;
-  color:#222;
+  font-family:Meiryo,sans-serif;
+  background:#f4f7f5;
   margin:0;
-  line-height:1.8;
+  color:#222;
+  line-height:1.7;
 }
 header{
   background:#0b7a3b;
   color:white;
   text-align:center;
-  padding:40px 20px;
+  padding:35px 20px;
 }
-nav{
-  text-align:center;
-  padding:15px;
-  background:#ffffff;
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:20px;
 }
-nav a{
-  color:#0b7a3b;
-  font-weight:bold;
-  margin:0 10px;
-  text-decoration:none;
-}
-section{
-  max-width:900px;
-  margin:25px auto;
+.card{
   background:white;
-  padding:25px;
-  border-radius:12px;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:18px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.12);
 }
-h1,h2,h3{margin-top:0}
-.profile{
-  display:flex;
-  gap:20px;
-  align-items:center;
+.notice{
+  background:#fff7d6;
+  border-left:6px solid #ffcc00;
 }
-.profile img{
-  width:180px;
-  max-width:40%;
-  border-radius:12px;
+select,textarea,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
 }
-.button{
-  display:inline-block;
-  background:#cc0000;
+button{
+  background:#0b7a3b;
   color:white;
-  padding:12px 18px;
-  border-radius:8px;
-  text-decoration:none;
+  border:none;
+  cursor:pointer;
   font-weight:bold;
+}
+button:disabled{
+  background:#999;
+}
+.voice-btn{
+  background:#0066cc;
+}
+.mic-btn{
+  background:#cc6600;
+}
+#chat{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.user{
+  align-self:flex-end;
+  background:#95ec69;
+  padding:12px;
+  border-radius:15px;
+  max-width:75%;
+}
+.ai{
+  align-self:flex-start;
+  background:white;
+  padding:12px;
+  border-radius:15px;
+  max-width:75%;
+  border:1px solid #ddd;
+}
+.name{
+  font-size:12px;
+  color:#666;
+  margin-bottom:5px;
+}
+.status{
+  font-size:14px;
+  color:#555;
+  margin-top:10px;
 }
 footer{
   text-align:center;
   padding:25px;
   color:#666;
-}
-@media(max-width:700px){
-  .profile{display:block}
-  .profile img{max-width:100%;width:100%;margin-bottom:15px}
 }
 </style>
 </head>
@@ -71,116 +101,201 @@ footer{
 <body>
 
 <header>
-  <h1>あすなろ興産 AI音声会話サービス</h1>
-  <p>AIが24時間、あなたの話し相手になります</p>
+  <h1>あすなろ興産 公開AI体験版</h1>
+  <p>マコト・ミサト・アカネと会話できます</p>
 </header>
 
-<nav>
-  <a href="index.html">トップページ</a>
-  <a href="profile.html">プロフィール</a>
-  <a href="ai.html">AI実験ページ</a>
-  <a href="https://youtube.com/@kansai-indust" target="_blank">YouTube</a>
-</nav>
+<div class="container">
 
-<section>
-  <h2>AIがあなたの話を聞きます</h2>
-  <p>
-    愚痴を聞いてほしい時。誰かと雑談したい時。励ましてほしい時。
-    あすなろ興産では、ChatGPTを活用した音声会話型AIサービスの開発を進めています。
-  </p>
-  <p>
-    利用者が話しかけると、AIが内容を理解し、それぞれの個性を持ったキャラクターとして返答します。
-  </p>
-</section>
-
-<section>
-  <h2>3人のAIキャラクター</h2>
-
-  <h3>マコト</h3>
-  <p>
-    ストレス解消・愚痴聞き担当。利用者の話を最後まで受け止めることを目標としたAIです。
-  </p>
-
-  <h3>ミサト</h3>
-  <p>
-    励まし・応援担当。前向きな言葉で利用者を支えます。
-  </p>
-
-  <h3>アカネ</h3>
-  <p>
-    雑談・暇つぶし担当。気軽な会話を楽しむためのAIです。
-  </p>
-</section>
-
-<section>
-  <h2>開発者プロフィール</h2>
-
-  <div class="profile">
-    <img src="profile.jpg" alt="開発者プロフィール画像">
-
-    <div>
-      <p>
-        私はプログラマーではありません。
-        しかし、ChatGPTの力を借りながら、ゼロからAI音声会話システムの開発に挑戦してきました。
-      </p>
-      <p>
-        現在は、音声入力、音声認識、AI応答、VOICEVOXによる音声読み上げまで実装し、
-        実際に会話できるシステムとして動作しています。
-      </p>
-      <p>
-        この挑戦を通じて、AIを使えば個人でも新しいサービスを作れる可能性があることを発信していきます。
-      </p>
-    </div>
+  <div class="card notice">
+    <p>
+      これは試験公開版です。文字入力・簡易音声読み上げ・マイク入力に対応しています。
+      個人情報、医療・法律・緊急相談は入力しないでください。
+    </p>
   </div>
-</section>
 
-<section>
-  <h2>YouTubeチャンネル</h2>
-  <p>
-    AI開発の様子や実験動画は、YouTubeでも公開しています。
-  </p>
-  <p>
-    <a class="button" href="https://youtube.com/@kansai-indust" target="_blank">
-      YouTubeチャンネルを見る
-    </a>
-  </p>
-</section>
+  <div class="card">
+    <h2>AIキャラクター選択</h2>
 
-<section>
-  <h2>現在の開発状況</h2>
-  <ul>
-    <li>音声入力：MediaRecorder方式</li>
-    <li>音声認識：Whisper</li>
-    <li>AI応答：ChatGPT</li>
-    <li>音声出力：VOICEVOX</li>
-    <li>キャラクター切替機能</li>
-  </ul>
-  <p>
-    現在も機能向上のため開発を継続中です。
-  </p>
-</section>
+    <select id="character">
+      <option value="makoto">マコト：愚痴聞き・ストレス解消</option>
+      <option value="misato">ミサト：励まし・応援</option>
+      <option value="akane">アカネ：雑談・暇つぶし</option>
+    </select>
 
-<section>
-  <h2>今後の目標</h2>
-  <p>
-    AIによる音声会話サービスを実用化し、愚痴聞き、雑談、励ましなど、
-    人に寄り添う新しいサービスの実現を目指しています。
-  </p>
-  <p>
-    将来的には電話回線との連携によるAI電話サービスの実現も検討しています。
-  </p>
-</section>
+    <textarea id="msg" rows="4" placeholder="ここに話したいことを書いてください"></textarea>
 
-<section>
-  <h2>各ページへのご案内</h2>
-  <p><a href="profile.html">開発者プロフィールを見る</a></p>
-  <p><a href="ai.html">AI実験ページを見る</a></p>
-  <p><a href="https://youtube.com/@kansai-indust" target="_blank">YouTubeチャンネルを見る</a></p>
-</section>
+    <button id="sendBtn" onclick="sendMsg()">送信</button>
+
+    <button class="mic-btn" onclick="startVoiceInput()">
+      マイクで話す
+    </button>
+
+    <button class="voice-btn" onclick="readLastReply()">
+      最後の返答を音声で読む
+    </button>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <div class="card">
+    <h2>会話</h2>
+    <div id="chat"></div>
+  </div>
+
+</div>
 
 <footer>
   <p>© あすなろ興産</p>
 </footer>
+
+<script>
+let isProcessing = false;
+let lastReply = "";
+
+function getCharacterName(character){
+  return {
+    makoto:"マコト",
+    misato:"ミサト",
+    akane:"アカネ"
+  }[character] || "AI";
+}
+
+function setStatus(text){
+  document.getElementById("status").textContent = text || "";
+}
+
+function escapeHtml(text){
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function addMessage(type, name, text){
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = type;
+  div.innerHTML = `<div class="name">${escapeHtml(name)}</div><div>${escapeHtml(text)}</div>`;
+  chat.appendChild(div);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function speakText(text){
+  if(!text) return;
+
+  if(!("speechSynthesis" in window)){
+    alert("このブラウザは音声読み上げに対応していません。");
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "ja-JP";
+  utterance.rate = 1.0;
+  utterance.pitch = 1.0;
+
+  speechSynthesis.speak(utterance);
+}
+
+function readLastReply(){
+  if(lastReply){
+    speakText(lastReply);
+  }else{
+    speakText("まだAIの返答がありません。");
+  }
+}
+
+function startVoiceInput(){
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if(!SpeechRecognition){
+    alert("このブラウザは音声入力に対応していません。ChromeまたはEdgeで試してください。");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "ja-JP";
+  recognition.interimResults = false;
+  recognition.continuous = false;
+
+  setStatus("録音中です。話してください。");
+
+  recognition.onresult = function(event){
+    const text = event.results[0][0].transcript;
+    document.getElementById("msg").value = text;
+    setStatus("音声入力しました。内容を確認して送信してください。");
+  };
+
+  recognition.onerror = function(event){
+    setStatus("音声入力エラー: " + event.error);
+  };
+
+  recognition.onend = function(){
+    if(document.getElementById("status").textContent === "録音中です。話してください。"){
+      setStatus("音声入力を終了しました。");
+    }
+  };
+
+  recognition.start();
+}
+
+async function sendMsg(){
+  if(isProcessing) return;
+
+  const msgBox = document.getElementById("msg");
+  const message = msgBox.value.trim();
+  const character = document.getElementById("character").value;
+  const sendBtn = document.getElementById("sendBtn");
+
+  if(!message){
+    setStatus("メッセージを入力してください。");
+    return;
+  }
+
+  isProcessing = true;
+  sendBtn.disabled = true;
+  setStatus("AIが返答を考えています。");
+
+  addMessage("user", "あなた", message);
+  msgBox.value = "";
+
+  try{
+    const res = await fetch("/chat", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        message: message,
+        character: character
+      })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      addMessage("ai", "エラー", data.error || "通信エラー");
+      setStatus("エラーが発生しました。");
+    }else{
+      const reply = data.reply || "返答がありません";
+      lastReply = reply;
+      addMessage("ai", getCharacterName(character), reply);
+      speakText(reply);
+      setStatus("返答しました。");
+    }
+
+  }catch(err){
+    addMessage("ai", "通信エラー", err.message);
+    setStatus("通信エラーが発生しました。");
+  }
+
+  isProcessing = false;
+  sendBtn.disabled = false;
+}
+</script>
 
 </body>
 </html>
