@@ -103,13 +103,53 @@ button:disabled{
     <textarea id="msg" rows="4" placeholder="ここに話したいことを書いてください"></textarea>
 
     <button id="sendBtn" onclick="sendMsg()">送信</button>
-  </div>
+
+ <button onclick="startVoiceInput()">マイクで話す</button>
+
+<button onclick="readLastReply()">最後の返答を音声で読む</button>
+
+<div id="status" style="margin-top:10px;color:#555;"></div> </div>
 
   <div id="chat"></div>
 
 </div>
 
-<script>
+<sclet lastReply = "";
+
+function speakText(text){
+  if(!text) return;
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "ja-JP";
+  speechSynthesis.speak(utterance);
+}
+
+function readLastReply(){
+  speakText(lastReply || "まだAIの返答がありません。");
+}
+
+function startVoiceInput(){
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if(!SpeechRecognition){
+    alert("このブラウザは音声入力に対応していません。ChromeかEdgeで試してください。");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "ja-JP";
+
+  document.getElementById("status").textContent = "録音中です。話してください。";
+
+  recognition.onresult = function(event){
+    const text = event.results[0][0].transcript;
+    document.getElementById("msg").value = text;
+    document.getElementById("status").textContent = "音声入力しました。送信してください。";
+  };
+
+  recognition.start();
+}ript>
 let isProcessing = false;
 
 function getCharacterName(character){
@@ -142,8 +182,11 @@ async function sendMsg(){
   isProcessing = true;
   sendBtn.disabled = true;
 
-  addMessage("user", "あなた", message);
-  msgBox.value = "";
+  
+  mconst reply = data.reply || "返答がありません";
+lastReply = reply;
+addMessage("ai", getCharacterName(character), reply);
+speakText(reply);sgBox.value = "";
 
   try{
     const res = await fetch("/chat", {
